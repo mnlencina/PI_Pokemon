@@ -44,11 +44,11 @@ module.exports = (sequelize) => {
     },
     imageF:{
       type: DataTypes.STRING,
-      allowNull: false,
+      
     },
     imageB:{
       type: DataTypes.STRING,
-      allowNull: false,
+      
     },
     
   },{ timestamps: false});

@@ -13,23 +13,23 @@ const getPokemonAll = async (req, res)=>{
     if(!url) url = `https://pokeapi.co/api/v2/pokemon`
     
     try {
-        let {data} = await axios.get(url)
-        let {results, next, previous}= data
+        const {data} = await axios.get(url)
+        const {results, next, previous}= data
         pokemones.next = next;
         pokemones.previous = previous;
         
-        let pokPromis = [];
+        const pokPromis = [];
         
         results.forEach(e => {
             let {url} = e
             pokPromis.push(url)
         });
        
-        let allPok = await Promise.all(pokPromis.map(url => axios.get(url)))
+        const allPok = await Promise.all(pokPromis.map(url => axios.get(url)))
         
         allPok.forEach(obj=>{ 
-            let e = obj.data
-                let pokemon = {
+            const e = obj.data
+                const pokemon = {
                     id : e.id,
                     name : e.name,
                     life : e.stats[0].base_stat,
@@ -47,10 +47,10 @@ const getPokemonAll = async (req, res)=>{
         })
         console.log(pokemones);    
 
-        res.status(201).json(pokemones)
+        return pokemones
         
     } catch (error) {
-        res.status(500).send({error: error.message})
+        res.status(404).json({error: error.messaje})
     }       
                     
 }    
