@@ -1,0 +1,15 @@
+.barLeft{
+    margin: 10px;
+    display: grid;
+}
+.barLeft img{
+    margin: 5px;
+    width: 30px; 
+    cursor: pointer;
+    transition: all 600ms;
+       
+}
+.barLeft img:hover{
+    transform: scale(1.3);
+   
+}

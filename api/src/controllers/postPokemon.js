@@ -1,8 +1,10 @@
 const {Pokemon} = require('../db')
 
 const postPokemon = async(req,res)=>{
+
     try {      
         let {name, life, stroke, defending, speed, height, weight, imageDefault} = req;
+        //carga pokemon creado a la DB 
         let pokCreated = await Pokemon.create({
             name,
             life,
