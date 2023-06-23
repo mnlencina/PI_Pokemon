@@ -1,37 +1,39 @@
 
-
-.videoBackground video {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    left: 0;    
-    z-index: -1;
-  };
-
-.imgLogo {
-    
-}
-
 .pagDiv {
     display: flex;
-    justify-items: center;
-    flex-direction: column-reverse;
-    flex-wrap: nowrap;
-    align-items: center;
     justify-content: center;
-
+    width: 100vw;
+    height: 100vh;
 }
 
+.pagDiv video{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
+.startPag2{
+    width: 600px;
+    transition: all 600ms;
+}
 
-.startPag img{
-    width: 100px; 
+.imgs{
+    display: flex;
+    position: absolute;
+    flex-direction: column;
+    align-items: center;
+    top: 10%;
+}
+
+.startPag{    
+    width: 100px;
+    top: 50%;
+    left: 47.4%;
     cursor: pointer;
     transition: all 600ms;
-       
+    
 }
-.startPag img:hover{
+.startPag:hover{
     transform: scale(1.3);
-   
+    
 }

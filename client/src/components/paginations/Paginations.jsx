@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
+import styles from '../paginations/Paginations.module.css'
 
-export const Paginacion = ({pagina, setPagina, maximo}) => {
+export const Paginations = ({pagina, setPagina, maximo}) => {
   const [input, setInput] = useState (1);
 
   const nextPage = () => {
@@ -14,14 +15,10 @@ export const Paginacion = ({pagina, setPagina, maximo}) => {
   };
 
   const onKeyDown = e => {
-    // eslint-disable-next-line eqeqeq
-    if (e.keyCode == 13) {
+    // keyCode numero 13 es cuando usamos 'Enter' en el teclado
+    if (e.keyCode === 13) {
       setPagina (parseInt (e.target.value));
-      if (
-        parseInt (e.target.value < 1) ||
-        parseInt (e.target.value) > Math.ceil (maximo) ||
-        isNaN (parseInt (e.target.value))
-      ) {
+      if (parseInt (e.target.value < 1) || parseInt (e.target.value) > Math.ceil (maximo) || isNaN (parseInt (e.target.value))){
         setPagina (1);
         setInput (1);
       } else {
@@ -35,10 +32,16 @@ export const Paginacion = ({pagina, setPagina, maximo}) => {
   };
 
   return (
-    <div>
-      <button disabled={pagina === 1 || pagina < 1} onClick={previousPage}>
+    <div className={styles.container}>
+    
+      <button 
+        className={styles.black}
+        disabled={pagina === 1 || pagina < 1} 
+        onClick={previousPage}
+      >
         Atras
       </button>
+      
       <input
         onChange={e => onChange (e)}
         onKeyDown={e => onKeyDown (e)}
@@ -46,12 +49,16 @@ export const Paginacion = ({pagina, setPagina, maximo}) => {
         autoComplete="off"
         value={input}
       />
-      <p> de {maximo} </p>
+      <p> de {Math.ceil(maximo)} </p>
+      
       <button
+        className={styles.black}
         disabled={pagina === Math.ceil (maximo) || pagina > Math.ceil (maximo)}
         onClick={nextPage}
-      >Siguiente
+      >
+        Siguiente
       </button>
+      
     </div>
   );
 };

@@ -7,8 +7,6 @@ const RouterPokemon = require('./RouterPokemon.js');
 const router = Router();
 
 
-
-
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
 

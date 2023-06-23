@@ -5,25 +5,28 @@ import Cards from "./components/cards/Cards.jsx"
 import Create from "./components/create/Create.jsx"
 import { Route, Routes, useLocation} from 'react-router-dom';
 import './App.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { addAllPokemon } from './redux/actions/index.js';
+import { useDispatch } from 'react-redux';
+import { addAllPokemon, addAllTypes } from './redux/actions/index.js';
+import Detail from './components/detail/Detail.jsx';
 
 function App() {
   const dispatch = useDispatch()
   const location = useLocation()
-  const {allPokemon} = useSelector((state)=> state)
+  
   
   useEffect(()=>{
      dispatch(addAllPokemon())
+     dispatch(addAllTypes())
   },[dispatch])
   
   return (
-    <div className="App">
+    <div className="appDiv">
       {location.pathname !== '/' && <Nav/>}
       <Routes>
         <Route path="/" element={<LadingPag/>} />
-        <Route path="/home"  element={<Cards allPokemon={allPokemon}/>}/>
+        <Route path="/home"  element={<Cards/>}/>
         <Route path="/create" element={<Create/>} />
+        <Route path='detail/:idDetail' element={<Detail/>} />
       </Routes>
     </div>
   );

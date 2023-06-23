@@ -1,3 +1,7 @@
+.link{
+  text-decoration: none;
+  color: inherit;
+ }
 .card h3{
   display: flex;
   justify-content: center;
@@ -14,11 +18,15 @@
     width: 180px;
     padding: 15px;
     margin: 0px 10px 0px 25px;
-    
 }
 
-.progresDiv p{
 
+.alturaP{
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 30px;
+  margin: -22px 5px -25px 5px;
 }
 
 .imgDefault{
@@ -91,8 +99,8 @@
     --front: var(--pokefront);
   }
   
-  .card:before,
-  .card:after {
+  .card::before,
+  .card::after {
     content: "";
     position: absolute;
     left: 0;
@@ -140,7 +148,7 @@
     );
     background-position: 50% 50%;
     background-size: 250% 250%;
-    opacity: .88;
+    opacity: .2;
     filter: brightness(.66) contrast(1.33);
     transition: none;
   }
@@ -151,15 +159,18 @@
     transition: none;
     animation: holoCard 12s ease 0s 1;
   }
-  .card :before { 
+  .card::before { 
       transition: none;
       animation: holoGradient 12s ease 0s 1;
     }
   
-  .card :after {
+  .card::after {
         transition: none;
         animation: holoSparkle 12s ease 0s 1;
       } 
+      
+
+       
   
   
   @keyframes holoSparkle {

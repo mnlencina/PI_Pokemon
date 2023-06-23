@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_ALLPOKEMON, GET_POKEMON_NAME, POST_POKEMON } from '../actionsType';
+import { ADD_POKEMON_DETAIL, FILTER_DB, FILTER_TYPE, GET_ALLPOKEMON, GET_POKEMON_NAME, GET_POKEMON_TYPES, ORDER_ATAQUE, ORDER_NAME, POST_POKEMON } from '../actionsType';
 
 
 export function addAllPokemon(){
@@ -8,6 +8,18 @@ export function addAllPokemon(){
     let {data} = await axios(endpoint)
     dispatch({
       type:GET_ALLPOKEMON,
+      payload: data
+    })
+  }
+}
+
+export function addAllTypes(){
+  const endpoint = 'http://localhost:3001/tipo'
+  return async function (dispatch){
+    let {data} = await axios(endpoint)
+    console.log(data);
+    dispatch({
+      type:GET_POKEMON_TYPES,
       payload: data
     })
   }
@@ -27,11 +39,57 @@ export function postPokemon(newPoke){
 export function addPokemon(name){
   const endpoint = 'http://localhost:3001/pokemon?name='+name;
   return async (dispatch) => {
-    const data = await axios.get(endpoint)
-      return dispatch({
-        type: GET_POKEMON_NAME,
-        payload: data
-      })
+    try {
+      const {data} = await axios.get(endpoint)
+        return dispatch({
+          type: GET_POKEMON_NAME,
+          payload: data
+        })      
+    } catch (error) {
+      alert ('Pokemon NOT FOUND!!!')
+    }
   }
 }
 
+export function addPokDetail(id){
+  const endpoint = 'http://localhost:3001/pokemon/'+id;
+  return async (dispatch) => {
+    try {
+      const {data} = await axios.get(endpoint)
+        return dispatch({
+          type: ADD_POKEMON_DETAIL,
+          payload: data
+        })      
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+}
+
+export function orderNamePok(payload) {
+  return {
+    type: ORDER_NAME,
+    payload
+  };
+};
+
+export function orderAtackPok(payload){
+  return{
+    type: ORDER_ATAQUE,
+    payload
+  }
+}
+
+export function filterTypePok(payload){
+  return{
+    type: FILTER_TYPE,
+    payload
+  }
+}
+
+export function filterDB(payload){
+  return{
+    type: FILTER_DB,
+    payload
+  }
+}

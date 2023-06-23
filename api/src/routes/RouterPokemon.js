@@ -6,30 +6,24 @@ const {Type} = require('../db')
 
 const router = Router();
 
-router.get('/', async(req,res)=>{    
-    console.log('paso por ALL');
-    try {
-        const pokemones = await getPokemonAll()
-        res.status(201).json(pokemones)
-    } catch (error) {
-        res.status(500).json({error: error.message})
-    }
-})
-
 router.get('/', async (req, res) => { 
-    const {name} = req.query
-    
+    const {name} = req.query    
     try {
-        const pokeID = await getPokNameOrId({name})
-        res.json(pokeID)        
+        if(name){
+            const poke = await getPokNameOrId({name})
+            return res.json(poke)
+        } else {
+            console.log('paso por ALL');
+            const pokemones = await getPokemonAll()
+            return res.json(pokemones)
+        }
     } catch (error) {
         res.status(500).json({error: error.message})
     }
 });
 
 router.get('/:id', async (req, res) => {
-    const {id} = req.params
-    
+    const {id} = req.params    
     try {
         const pokeID = await getPokNameOrId({id})
         res.json(pokeID)        

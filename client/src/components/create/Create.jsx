@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {useDispatch} from "react-redux"
 import styles from "./Create.module.css"
-import { postPokemon } from "../../redux/actions";
+import { addAllPokemon, postPokemon } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
+import { validate } from "../validate/Validate";
 
 const Create = (prop)=>{
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     
     const [newPokemon, setNewPokemon] = useState({
         name: '',
@@ -18,23 +21,39 @@ const Create = (prop)=>{
         type:[]
         
     })
+    const [errors, setErrors] = useState({
+        name: '',
+        life: '',
+        stroke: '',
+        defending: '',
+        speed: '',
+        height: '',
+        weight: '',
+        imageDefault: ''
+    })
     
     const handleChange = (e)=>{
         const{value, name} = e.target;
         console.log(value, name);
-        setNewPokemon({...newPokemon, [name]:value})    
+        setNewPokemon({...newPokemon, [name]:value})
+        setErrors(validate({...newPokemon, [name]:value}))
     }
     
-    const handleType = (e)=>{     
+    const handleType = (e)=>{
+        console.log(e.target.id, e.target.checked, e.target.value);
         const {id} = e.target;
-        if (newPokemon.type.length > 2) alert ('El Pokemon pueden ser solo dos Tipos')
-        if (newPokemon.type.includes(id)){
+        const checkbox = document.getElementById(id)
+        if (newPokemon.type.length >= 2 && checkbox.checked === true) {
+            checkbox.checked = false
+            return alert ('El Pokemon pueden ser solo dos Tipos')
+        }else if(newPokemon.type.includes(id)){
             console.log("Ya tiene elemento");
             const filtered = newPokemon.type.filter(ty=> ty !== id)
             setNewPokemon({
                 ...newPokemon,
                 type: filtered
-            })        
+            })
+            
         }else{
             setNewPokemon({
                 ...newPokemon,
@@ -44,12 +63,23 @@ const Create = (prop)=>{
     }
     
     useEffect(()=>{
-        console.log(newPokemon);
-    },[newPokemon])
-    
-    const handleSubmit = (e)=>{        
+        console.log('Actualizo Estados');
+    },[newPokemon, errors])
+       
+    const handleSubmit = (e)=>{
         e.preventDefault()
-        dispatch(postPokemon(newPokemon))
+        let errores = validate(newPokemon);
+        console.log('verifico errores', errores);
+        if(Object.keys(errores).length === 0 && (newPokemon.type).length !== 0){
+            dispatch(postPokemon(newPokemon))
+            dispatch(addAllPokemon())
+            alert('CREADO CON EXITO')
+            navigate('/home')
+        }else if((newPokemon.type).length === 0){
+            alert('Seleccionar al menos Un Tipo')
+        }else{
+            alert('Faltan DATOS')
+        }
     }
    
     
@@ -57,56 +87,64 @@ const Create = (prop)=>{
     <div className={styles.divBody}>
         <form className={styles.containerForm} onSubmit={handleSubmit}>
              <div className={styles.inputDiv}>
-            <h2>NOMBRE</h2>
+            <h2><span>NOMBRE</span></h2>
                 <input name='name' type="text" onChange={handleChange}/>                
             </div>
+            {errors.name ? <p className={styles.errors}>{errors.name}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>ENERGIA</h2>
+            <h2><span>ENERGIA</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='life' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.life}</p>
             </div>
             </div>
+            {errors.life ? <p className={styles.errors}>{errors.life}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>ATAQUE</h2>
+            <h2><span>ATAQUE</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='stroke' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.stroke}</p>
             </div>
             </div>
+            {errors.stroke ? <p className={styles.errors}>{errors.stroke}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>DEFENSA</h2>
+            <h2><span>DEFENSA</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='defending' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.defending}</p>
             </div>
             </div>
+            {errors.defending ? <p className={styles.errors}>{errors.defending}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>VELOCIDAD</h2>
+            <h2><span>VELOCIDAD</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='speed' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.speed}</p>
             </div>
             </div>
+            {errors.speed ? <p className={styles.errors}>{errors.speed}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>ALTURA</h2>
+            <h2><span>ALTURA</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='height' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.height}</p>
             </div>
             </div>
+            {errors.height ? <p className={styles.errors}>{errors.height}</p> : null}
             <div className={styles.inputDiv}>
-            <h2>PESO</h2>
+            <h2><span>PESO</span></h2>
             <div className={styles.inputDiv2}>
                 <input name='weight' type="range" onChange={handleChange} min="0" max="200" />
                 <p>{newPokemon.weight}</p>
             </div>
             </div>
+            {errors.weight ? <p className={styles.errors}>{errors.weight}</p> : null}
             <div className={styles.inputDiv}>
-                <h2>IMAGEN</h2>
+                <h2><span>IMAGEN</span></h2>
                 <input name='imageDefault' type="text" onChange={handleChange}/>                
             </div>
-                <h2>TIPOS</h2>
+            {errors.imageDefault ? <p className={styles.errors}>{errors.imageDefault}</p> : null}
+                <h2><span>TIPOS:</span></h2>
             <div className={styles.types}>                
                 <div className={styles.checkBoxHolder}>
                     <input type="checkbox" id="normal" className={styles.checkBoxInput} onChange={handleType}/>
@@ -269,7 +307,7 @@ const Create = (prop)=>{
                     </label>
                 </div>
             </div>
-            <button type="submit">Agregar</button>
+            <button className={styles.submitBtn} type="submit"><span>Agregar</span></button>
         </form>
     </div>
     )

@@ -1,26 +1,43 @@
 const axios = require('axios')
+const { Pokemon, Type } = require("../db");
 
-
-const getPokemonAll = async (req, res)=>{ 
-    
-    let allPokemon = []
-        
+const getPokemonAll = async (req, res)=>{     
     try {
-        const {data} = await axios.get(`https://pokeapi.co/api/v2/pokemon?offset=0&limit=1281`)
+        const pokApi = await getPokemonApi()
+        const pokDb = await getPokemonDB()
+        return pokApi.concat(pokDb)
+    } catch (error) {
+        res.status(400).json({error: error.messaje})
+    }                           
+} 
+
+const getPokemonDB = async (req, res)=>{
+    try {
+        const pokemonesDB = await Pokemon.findAll({
+            include:{
+                model: Type,
+                attributes: ['name'],
+                through: {attributes: []}
+            }
+        })
+              
+        return pokemonesDB
+    } catch (error) {
+        res.status(400).json({error: error.messaje})
+    }
+}
+
+const getPokemonApi = async (req, res)=>{     
+    try {
+        const {data} = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=600")
         const {results}= data
-               
-        const pokPromis = [];
-        
-        results.forEach(e => {
-            let {url} = e
-            pokPromis.push(url)
-        });
-               
+        const pokPromis = results.map(e => e.url);
+
         const allPok = await Promise.all(pokPromis.map(url => axios.get(url)))
-        
-        allPok.forEach(obj=>{ 
-            const e = obj.data
-                const pokemon = {
+        console.log('cantidad de pokemones', allPok.length);
+        const pokemonesApi = allPok.map(obj=>{ 
+            let e = obj.data
+                let pokemon = {
                     id : e.id,
                     name : (e.name).charAt(0).toUpperCase() + (e.name).slice(1),
                     life : e.stats[0].base_stat,
@@ -31,18 +48,15 @@ const getPokemonAll = async (req, res)=>{
                     weight : e.weight,
                     imageDefault: e.sprites.other.dream_world.front_default,
                     imageF : e.sprites.other.home.front_default,
-                    imageB : e.sprites.other.home.front_shiny,
                     types: e.types.map((t) => t.type.name),
+                    createdDB: false
                 };                
-            allPokemon.push(pokemon);                
-        })
-        
-        return allPokemon
-        
+                return pokemon;                
+        })       
+        return pokemonesApi        
     } catch (error) {
-        res.status(404).json({error: error.messaje})
-    }       
-                    
-}    
+        res.status(400).json({error: error.messaje})
+    }                           
+} 
 
 module.exports = getPokemonAll
