@@ -2,6 +2,7 @@ import React from "react";
 import styles from './Card.module.css'
 import NOTimage from '../img/startt2.gif'
 import { Link } from "react-router-dom";
+import { imgTypes } from "../../Util/imgTypes";
 
 const Card = (props)=>{
     let imageDefault = '';  
@@ -9,6 +10,17 @@ const Card = (props)=>{
     !props.imageDefault 
         ? imageDefault = props.imageF
         : imageDefault = props.imageDefault
+        
+    const progreS = (v)=>{
+        let result = '';
+        let i = 0;
+        
+        do {
+          i = i + 1;
+          result = result + '/';
+        } while (i < (v/5.5));
+        return result;
+    }
 
     return(
     <>
@@ -19,32 +31,29 @@ const Card = (props)=>{
                 {!imageDefault ? <img src={NOTimage} alt=""/> : <img src={imageDefault} alt=""/> } 
                             
             </div>
-            <h3>{props.name}</h3>
-            <div className={styles.alturaP}>
-                <p>Altura: {props.height}</p>
-                <p>Peso: {props.weight}</p>
-            </div>
+            <h2 className={styles.name}><span>{props.name}</span></h2>
+            
             <div>
-                    <p>Vida: </p>
-                <div className={styles.progresDiv}>
-                    <progress value={props.life} max='250'/>
-                    <p>{props.life}</p>
+                <div className={styles.tipes}>
+                    <div className={styles.typeDiv}>
+                        <img src={imgTypes[props.types[0]]} alt="" />
+                            <span>{props.types[0].toUpperCase()}</span>
+                    </div>
+                    {props.types[1] 
+                        ? (<div className={styles.typeDiv}>
+                            <img src={imgTypes[props.types[1]]} alt="" />
+                            <span>{props.types[1].toUpperCase()}</span>
+                            </div>)
+                        : null}
+                            
                 </div>
-                    <p>Ataque: </p>
+                 
                 <div className={styles.progresDiv}>
                     <progress value={props.stroke} max='250'/>
-                    <p>{props.stroke}</p>
+                    <p>ATTK</p>
                 </div>
-                    <p>Defensa: </p>
-                <div className={styles.progresDiv}>
-                    <progress value={props.defending} max='250'/>
-                    <p>{props.defending}</p>
-                </div>
-                    <p>Velocidad: </p>
-                <div className={styles.progresDiv}>
-                    <progress value={props.speed} max='250'/>
-                    <p>{props.speed}</p>
-                </div>
+                
+                
             </div>
             
             

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {  useState } from "react";
 import Card from "../card/Card";
 import styles from './Cards.module.css'
 import { Paginations } from "../paginations/Paginations";
@@ -9,29 +9,39 @@ import { filterDB, orderAtackPok, orderNamePok } from "../../redux/actions";
 const Cards = (props)=>{
     const {pokemon} = useSelector((state)=> state)
     const dispatch = useDispatch()
+    
     const [pagina, setPagina] = useState(1);
-    const [porPagina, setPorPagina] = useState(12);
+    const [porPagina] = useState(12);
+    
     const [order, setOrder] = useState('');
-    const [atack, setAtack] = useState('')
+    const [atack, setAtack] = useState('');
+    const pagIni = (pagina - 1) * porPagina;
+    const pagFin = (pagina - 1) * porPagina + porPagina;
+    
+   
     
     
-    const maximo = pokemon.length / porPagina;
+    let maximo = pokemon.length / porPagina;
+   
     
     const handleOrderName = (e)=>{
         e.preventDefault();
         dispatch(orderNamePok(e.target.value));
-        setOrder(e.target.value); 
+        setOrder(e.target.value);
+        setPagina(1)
     }
     
     const handleOrderAtaque = (e)=>{
         e.preventDefault()
         dispatch(orderAtackPok(e.target.value))
         setAtack(e.target.value)
+        setPagina(1)
     }
     
     const handlerData = (e)=>{
         console.log(e.target.checked);
         dispatch(filterDB(e.target.checked))
+        setPagina(1)
     }
     
     return(
@@ -57,13 +67,10 @@ const Cards = (props)=>{
                 </label>
             </div>
             <div>
-               {<Paginations pagina={pagina} setPagina={setPagina} maximo={maximo} setPorPagina={setPorPagina} />}
+               {<Paginations pagina={pagina} setPagina={setPagina} maximo={maximo}/>}
             </div>
             <div className={styles.cardsDiv}>
-            {pokemon.slice(
-                (pagina - 1) * porPagina,
-                (pagina - 1) * porPagina + porPagina
-            ).map((p, i) =>
+            {pokemon.slice(pagIni,pagFin).map((p) =>
                 <Card
                     key={p.id}
                     id={p.id}

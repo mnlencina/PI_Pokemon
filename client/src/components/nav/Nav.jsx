@@ -7,9 +7,16 @@ import styles from "../nav/Nav.module.css"
 const Nav = (props)=>{
     const [filterBar, setFilterBar] = useState(false)
     const location = useLocation()
+    const [barra, setBarra] = useState(styles.barLeft2)
+    
+    
     const onTypes =()=>{
         setFilterBar(!filterBar)
+        if(filterBar) setBarra(styles.barLeft2)
+        // eslint-disable-next-line no-unused-vars
+        else setBarra(styles.barLeft);
     }
+    
     return(
         <div className={styles.container}>
             <div>
@@ -30,8 +37,8 @@ const Nav = (props)=>{
                 }
             </div>
             <div>
-                {location.pathname !== "/create" && filterBar && (
-                    <div className={styles.barLeft}>
+                {location.pathname !== "/create" && location.pathname !== "/detail" && (
+                    <div className={barra}>
                         <TypeBar/>
                     </div>
                 )}

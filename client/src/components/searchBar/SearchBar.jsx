@@ -15,11 +15,17 @@ const SearchBar = (props)=>{
         console.log(pokemon);
         dispatch(addPokemon(pokemon))
     }
+    const onSearchEnter =(e)=>{
+        if (e.keyCode === 13) {
+            console.log(pokemon);
+            dispatch(addPokemon(pokemon))
+        }
+    }
     
     return(
     <>
         <div className={styles.inputGroup}>
-		    <input onChange={handleChange} placeholder="Enter name Pokemon" type="text" />
+		    <input onChange={handleChange} onKeyDown={onSearchEnter} placeholder="Enter name Pokemon" type="text" />
 		    <button onClick={onSearch} className={styles.submitBtn}><span>BUSCAR</span></button>
 	    </div>
     </>

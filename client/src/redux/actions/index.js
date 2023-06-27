@@ -28,11 +28,15 @@ export function addAllTypes(){
 export function postPokemon(newPoke){
   const endpoint = 'http://localhost:3001/pokemon'
   return async function (dispatch){
-    const createPok = await axios.post(endpoint, newPoke);
-    dispatch({
-      type:POST_POKEMON,
-      payload: createPok
-    })    
+    try {
+      const createPok = await axios.post(endpoint, newPoke);
+      dispatch({
+        type:POST_POKEMON,
+        payload: createPok
+      })          
+    } catch (error) {
+      alert ('Verifique si el Pokemon ya Existe')
+    }
   }   
 };
 

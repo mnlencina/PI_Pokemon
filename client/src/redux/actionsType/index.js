@@ -1,9 +1,10 @@
-export const GET_POKEMON_NAME = 'GET_POKEMON_NAME';
-export const GET_ALLPOKEMON = 'GET_ALLPOKEMON';
-export const GET_POKEMON_TYPES = 'GET_POKEMON_TYPES';
-export const POST_POKEMON = 'POST_POKEMON';
-export const ORDER_NAME = 'ORDER_NAME';
-export const ORDER_ATAQUE = 'ORDER_ATAQUE';
-export const FILTER_TYPE = 'FILTER_TYPE';
-export const FILTER_DB = 'FILTER_DB';
+
 export const ADD_POKEMON_DETAIL = 'ADD_POKEMON_DETAIL';
+export const FILTER_DB = 'FILTER_DB';
+export const FILTER_TYPE = 'FILTER_TYPE';
+export const GET_ALLPOKEMON = 'GET_ALLPOKEMON';
+export const GET_POKEMON_NAME = 'GET_POKEMON_NAME';
+export const GET_POKEMON_TYPES = 'GET_POKEMON_TYPES';
+export const ORDER_ATAQUE = 'ORDER_ATAQUE';
+export const ORDER_NAME = 'ORDER_NAME';
+export const POST_POKEMON = 'POST_POKEMON';

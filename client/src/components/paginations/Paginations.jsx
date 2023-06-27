@@ -1,9 +1,13 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styles from '../paginations/Paginations.module.css'
 
 export const Paginations = ({pagina, setPagina, maximo}) => {
   const [input, setInput] = useState (1);
-
+  
+  useEffect(()=>{
+    setInput(pagina)  
+  },[pagina])
+  
   const nextPage = () => {
     setInput (parseInt(input) + 1);
     setPagina (parseInt(pagina) + 1);
@@ -28,7 +32,7 @@ export const Paginations = ({pagina, setPagina, maximo}) => {
   };
   
   const onChange = e => {
-    setInput (e.target.value);
+    setInput (parseInt (e.target.value));
   };
 
   return (

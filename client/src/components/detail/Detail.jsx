@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { addPokDetail } from "../../redux/actions";
 import styles from '../detail/Detail.module.css'
+import { imgTypes } from "../../Util/imgTypes";
 
 const Detail = (props)=>{
     const {detail} = useSelector((state)=> state)
@@ -12,7 +13,7 @@ const Detail = (props)=>{
         
     useEffect(()=>{
         console.log(dispatch(addPokDetail(idDetail)));        
-    },[dispatch, idDetail])
+    },[dispatch, idDetail])   
     
    
      
@@ -22,13 +23,25 @@ const Detail = (props)=>{
             <button className={styles.submitBtn} onClick={()=> navigate(-1)}><span>Volver</span></button>
         <div className={styles.container}>
             <div>
-                <h4 className={styles.name}><span>{detail.name}</span></h4>
+                <h1 className={styles.name}><span>{detail.name}</span></h1>
                 <div className={styles.container2}>
                     <div>
-                        <img className={styles.img} src={detail.imageDefault} alt="" />
+                        <img className={styles.img} src={detail.imageDefault ? detail.imageDefault : detail.imageF} alt="" />
                     </div>  
                     <div>
-                        <div className={styles.name}><span>{detail.types[0]}</span> {detail.types[1] ? <span>{detail.types[1]}</span> : null}</div>
+                        <div className={styles.tipes}>
+                            <div className={styles.typeDiv}>
+                                <img src={imgTypes[detail.types[0]]} alt="" />
+                                <span>{detail.types[0].toUpperCase()}</span>
+                            </div>
+                            {detail.types[1] 
+                            ? (<div className={styles.typeDiv}>
+                                    <img src={imgTypes[detail.types[1]]} alt="" />
+                                    <span>{detail.types[1].toUpperCase()}</span>
+                               </div>)
+                            : null}
+                            
+                        </div>
                         <p>Vida: </p>
                         <div className={styles.progresDiv}>
                             <progress value={detail.life} max='250'/>

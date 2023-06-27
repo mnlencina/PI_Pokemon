@@ -13,6 +13,7 @@ import {
 const initialState = {
 pokemon:[],
 allPokemon:[],
+filterTypes:[],
 types:[],
 detail:{},
 };
@@ -24,7 +25,9 @@ export default function rootReducer(state = initialState, {type,payload}) {
       return {
         ...state,
         pokemon: payload,
-        allPokemon: payload
+        allPokemon: payload,
+        filterTypes: payload
+        
       }
     case GET_POKEMON_NAME:
       return {
@@ -34,12 +37,12 @@ export default function rootReducer(state = initialState, {type,payload}) {
     case ADD_POKEMON_DETAIL:
       return {
         ...state,
-        detail: payload
+        detail: payload,
       }
       case GET_POKEMON_TYPES:
       return {
         ...state,
-        types: payload
+        types: payload,
       }
     case ORDER_NAME:
       let orderName = [...state.pokemon].sort((a, b) => {
@@ -49,19 +52,22 @@ export default function rootReducer(state = initialState, {type,payload}) {
       });
       return {
         ...state,
-        pokemon: payload === 'name' ? state.allPokemon : orderName
+        pokemon: payload === 'name' ? state.allPokemon : orderName,
       };
     case ORDER_ATAQUE:      
       const orderAtaque = [...state.pokemon].sort((a,b)=> payload === 'mayorAtaque' ? b.stroke-a.stroke : a.stroke-b.stroke );
       return {
         ...state,
-        pokemon: payload === 'ataque' ? state.allPokemon : orderAtaque
+        pokemon: payload === 'ataque' ? state.allPokemon : orderAtaque,
       };
     case FILTER_TYPE:
-      const filterType = [...state.allPokemon].filter((p)=> p.types.includes(payload))
+      const filterType = payload === "todos" 
+        ? [...state.allPokemon]
+        : [...state.filterTypes].filter((p)=> p.types.includes(payload))
       return {
         ...state,
-        pokemon: filterType
+        pokemon: filterType,
+        filterTypes: payload === "todos" ? [...state.allPokemon] : [...state.filterTypes]
       }
     case FILTER_DB:
       let filteredDb =[]
@@ -72,12 +78,12 @@ export default function rootReducer(state = initialState, {type,payload}) {
       }
       return {
           ...state,
-          pokemon: filteredDb
+          pokemon: filteredDb,
+          filterTypes: filteredDb
         }      
     case POST_POKEMON:
         return {
           ...state,
-          allPokemon:[...state.allPokemon, payload]
       }
     
 default: return {...state};

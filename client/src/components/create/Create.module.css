@@ -107,7 +107,7 @@
     transform: translateY(-2px);
   }
   
-  /* Multiple Checkboxes can be chained together for a radio input */
+ 
   .checkBoxWrapper:first-of-type .checkBox {
     border-bottom-left-radius: 5px;
     border-top-left-radius: 5px;

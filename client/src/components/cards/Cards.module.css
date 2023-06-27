@@ -64,7 +64,8 @@
     perspective: 2000px;
     position: relative;
     z-index: 1;
-    transform: translate3d(0.1px, 0.1px, 0.1px )
+    transform: translate3d(0.1px, 0.1px, 0.1px );
+    gap: 20px;
 }
 .switch {
     position: relative;

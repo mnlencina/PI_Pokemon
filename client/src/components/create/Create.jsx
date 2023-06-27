@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import styles from "./Create.module.css"
 import { addAllPokemon, postPokemon } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 import { validate } from "../validate/Validate";
 
 const Create = (prop)=>{
+    const {types} = useSelector((state)=> state)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     
@@ -145,167 +146,17 @@ const Create = (prop)=>{
             </div>
             {errors.imageDefault ? <p className={styles.errors}>{errors.imageDefault}</p> : null}
                 <h2><span>TIPOS:</span></h2>
-            <div className={styles.types}>                
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="normal" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="normal" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Normal</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="fighting" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="fighting" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Fighting</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="flying" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="flying" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Flying</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="poison" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="poison" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Poison</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="ground" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="ground" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Ground</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="rock" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="rock" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Rock</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="bug" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="bug" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Bug</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="ghost" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="ghost" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Ghost</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="steel" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="steel" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Steel</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="fire" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="fire" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Fire</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="water" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="water" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Water</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="grass" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="grass" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Grass</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="electric" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="electric" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Electric</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="psychic" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="psychic" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Psychic</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="ice" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="ice" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Ice</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="dragon" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="dragon" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Dragon</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="dark" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="dark" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Dark</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="fairy" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="fairy" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Fairy</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="unknown" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="unknown" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Unknown</div>
-                        </div>
-                    </label>
-                </div>
-                <div className={styles.checkBoxHolder}>
-                    <input type="checkbox" id="shadow" className={styles.checkBoxInput} onChange={handleType}/>
-                    <label htmlFor="shadow" className={styles.checkBoxWrapper}>
-                        <div className={styles.checkBox}>
-                            <div className={styles.inner}>Shadow</div>
-                        </div>
-                    </label>
-                </div>
+            <div className={styles.types}>
+            {types?.map(t=>{
+                    return (<div className={styles.checkBoxHolder}>
+                                <input type="checkbox" id={t.name} className={styles.checkBoxInput} onChange={handleType}/>
+                                <label htmlFor={t.name} className={styles.checkBoxWrapper}>
+                                    <div className={styles.checkBox}>
+                                        <div className={styles.inner}>{(t.name).charAt(0).toUpperCase() + (t.name).slice(1)}</div>
+                                    </div>
+                                </label>
+                            </div>)
+            })}
             </div>
             <button className={styles.submitBtn} type="submit"><span>Agregar</span></button>
         </form>

@@ -20,8 +20,26 @@ const getPokemonDB = async (req, res)=>{
                 through: {attributes: []}
             }
         })
-              
-        return pokemonesDB
+        console.log(pokemonesDB[0].name);
+        const filterPok = pokemonesDB.map( e =>{
+            return{
+                id : e.id,
+                name : (e.name).charAt(0).toUpperCase() + (e.name).slice(1),
+                life : e.life,
+                stroke : e.stroke,
+                defending : e.defending,
+                speed : e.speed,
+                height : e.height,
+                weight : e.weight,
+                imageDefault: e.imageDefault,
+                imageF : e.imageF,
+                types: e.types.map((t) => t.name),
+                createdDB: e.createdDB
+            }})
+      
+       console.log(filterPok);
+       
+        return filterPok
     } catch (error) {
         res.status(400).json({error: error.messaje})
     }
@@ -29,7 +47,7 @@ const getPokemonDB = async (req, res)=>{
 
 const getPokemonApi = async (req, res)=>{     
     try {
-        const {data} = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=600")
+        const {data} = await axios.get("https://pokeapi.co/api/v2/pokemon?limit=300")
         const {results}= data
         const pokPromis = results.map(e => e.url);
 

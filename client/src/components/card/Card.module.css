@@ -2,32 +2,47 @@
   text-decoration: none;
   color: inherit;
  }
-.card h3{
+.card h2{
   display: flex;
   justify-content: center;
   margin-top: -30px;
 }
+.name span {
+  font-weight: 800;
+  letter-spacing: 2px;
+  background: #ff00f2c1 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s;
+  -webkit-text-stroke-width: 1.2px;
+  -webkit-text-stroke-color: rgb(0, 0, 0);
+  z-index: 5;
+  text-shadow: -2px -6px 4px rgba(251, 255, 0, 0.743);
+}
+
 
 .progresDiv{
     display: flex;
     align-items: center;
-    margin: -35px 5px -30px 5px;
+    margin: 0px 5px -30px 5px;
 }
 
 .progresDiv progress{
-    width: 180px;
-    padding: 15px;
-    margin: 0px 10px 0px 25px;
+    width: 250px;
+    padding: 25px;    
+}
+.progresDiv p{
+  color: rgb(129, 246, 238);
+  font-size: 12px;
+  font-weight: 500;
+  position: absolute;
+  left: 13px;  
 }
 
 
-.alturaP{
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  height: 30px;
-  margin: -22px 5px -25px 5px;
-}
+
+
 
 .imgDefault{
   display: flex;
@@ -40,6 +55,30 @@
   width: 200px;
   height: 200px;  
    
+}
+.tipes{  
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-evenly;
+}
+.tipes img{
+  width: 70px;
+  
+}
+.tipes span {
+  font-weight: 800;
+  background: rgba(10, 10, 10, 0.933);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.5s;
+  z-index: 5;
+}
+.typeDiv{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 :root {
@@ -56,13 +95,13 @@
   
   .card {  
     width: 250px;
-    height: 400px;    
+    height: 361px;    
     position: relative;
     overflow: hidden;
     margin: 20px;
     overflow: hidden;
     touch-action: none;    
-    border-radius: 5% / 3.5%;
+    border-radius: 15px;
     box-shadow: 
       -5px -5px 5px -5px var(--color1), 
       5px 5px 5px -5px var(--color2), 
