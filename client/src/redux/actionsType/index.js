@@ -8,3 +8,4 @@ export const GET_POKEMON_TYPES = 'GET_POKEMON_TYPES';
 export const ORDER_ATAQUE = 'ORDER_ATAQUE';
 export const ORDER_NAME = 'ORDER_NAME';
 export const POST_POKEMON = 'POST_POKEMON';
+export const RESET_DETAIL = 'RESET_DETAIL';

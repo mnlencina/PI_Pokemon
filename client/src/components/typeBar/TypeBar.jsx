@@ -5,6 +5,7 @@ import { filterTypePok } from "../../redux/actions";
 
 
 const TypeBar = (props)=>{
+    const {setPagina} = props
     const {types} = useSelector((state)=> state)
     const dispatch = useDispatch()
     
@@ -12,6 +13,7 @@ const TypeBar = (props)=>{
     const handlerType = (e)=>{
         console.log(e.target.value.toLowerCase());
         dispatch(filterTypePok(e.target.value))
+        setPagina(1)
         const checkbox1 = document.getElementById(e.target.value)
         setTimeout(() => {
             if(checkbox1.checked) checkbox1.checked = false
@@ -38,7 +40,7 @@ const TypeBar = (props)=>{
                         <span className={Styles.txt}>TODOS</span>
                     </label>
         {types?.map(t=>{
-            return (<>
+            return (<div key={t.id}>
                     <input
                         className={Styles.inputBtn}
                         onChange={handlerType} 
@@ -54,7 +56,7 @@ const TypeBar = (props)=>{
                         <span className={Styles.span}></span>
                         <span className={Styles.txt}>{(t.name).toUpperCase()}</span>
                     </label>
-                    </>
+                    </div>
             )
         })}
         </div>

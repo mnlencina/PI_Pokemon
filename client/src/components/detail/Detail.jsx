@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { addPokDetail } from "../../redux/actions";
 import styles from '../detail/Detail.module.css'
 import { imgTypes } from "../../Util/imgTypes";
+import { imgUtil } from "../../Util/imgUtil";
 
 const Detail = (props)=>{
     const {detail} = useSelector((state)=> state)
@@ -19,7 +20,7 @@ const Detail = (props)=>{
      
     return(
     <div className={styles.cont}>
-            { !detail.name ? (<div><h4>LOANDIG...</h4></div>) : (<>
+            { !detail.name ? (<div><img src={imgUtil.loanding} alt="" /></div>) : (<>
             <button className={styles.submitBtn} onClick={()=> navigate(-1)}><span>Volver</span></button>
         <div className={styles.container}>
             <div>
@@ -63,8 +64,8 @@ const Detail = (props)=>{
                             <p>{detail.speed}</p>
                         </div>
                         <div className={styles.container3}>
-                            <p>{`Peso: ${detail.weight}`}</p>
-                            <p>{`Altura: ${detail.height}`}</p>
+                            <p>{`Peso: ${detail.weight/10}Kg`}</p>
+                            <p>{`Altura: ${detail.height/10}m`}</p>
                         </div>
                     </div> 
                 </div>

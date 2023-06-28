@@ -34,14 +34,14 @@ const Create = (prop)=>{
     })
     
     const handleChange = (e)=>{
-        const{value, name} = e.target;
+        let{value, name} = e.target;
+        if (name === 'weight' || name === 'height') value = Math.ceil(value/10);
         console.log(value, name);
         setNewPokemon({...newPokemon, [name]:value})
         setErrors(validate({...newPokemon, [name]:value}))
     }
     
     const handleType = (e)=>{
-        console.log(e.target.id, e.target.checked, e.target.value);
         const {id} = e.target;
         const checkbox = document.getElementById(id)
         if (newPokemon.type.length >= 2 && checkbox.checked === true) {
@@ -95,7 +95,7 @@ const Create = (prop)=>{
             <div className={styles.inputDiv}>
             <h2><span>ENERGIA</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='life' type="range" onChange={handleChange} min="0" max="200" />
+                <input name='life' type="range" onChange={handleChange} min="0" max="250" />
                 <p>{newPokemon.life}</p>
             </div>
             </div>
@@ -103,7 +103,7 @@ const Create = (prop)=>{
             <div className={styles.inputDiv}>
             <h2><span>ATAQUE</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='stroke' type="range" onChange={handleChange} min="0" max="200" />
+                <input name='stroke' type="range" onChange={handleChange} min="0" max="250" />
                 <p>{newPokemon.stroke}</p>
             </div>
             </div>
@@ -111,7 +111,7 @@ const Create = (prop)=>{
             <div className={styles.inputDiv}>
             <h2><span>DEFENSA</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='defending' type="range" onChange={handleChange} min="0" max="200" />
+                <input name='defending' type="range" onChange={handleChange} min="0" max="250" />
                 <p>{newPokemon.defending}</p>
             </div>
             </div>
@@ -119,24 +119,24 @@ const Create = (prop)=>{
             <div className={styles.inputDiv}>
             <h2><span>VELOCIDAD</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='speed' type="range" onChange={handleChange} min="0" max="200" />
+                <input name='speed' type="range" onChange={handleChange} min="0" max="250" />
                 <p>{newPokemon.speed}</p>
             </div>
             </div>
             {errors.speed ? <p className={styles.errors}>{errors.speed}</p> : null}
             <div className={styles.inputDiv}>
-            <h2><span>ALTURA</span></h2>
+            <h2><span>ALTURA(m)</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='height' type="range" onChange={handleChange} min="0" max="200" />
-                <p>{newPokemon.height}</p>
+                <input name='height' type="range" onChange={handleChange} min="0" max="1000" />
+                <p>{(newPokemon.height/10).toFixed(1)}</p>
             </div>
             </div>
             {errors.height ? <p className={styles.errors}>{errors.height}</p> : null}
             <div className={styles.inputDiv}>
-            <h2><span>PESO</span></h2>
+            <h2><span>PESO(kg)</span></h2>
             <div className={styles.inputDiv2}>
-                <input name='weight' type="range" onChange={handleChange} min="0" max="200" />
-                <p>{newPokemon.weight}</p>
+                <input name='weight' type="range" onChange={handleChange} min="0" max="20000" />
+                <p>{(newPokemon.weight/10).toFixed(1)}</p>
             </div>
             </div>
             {errors.weight ? <p className={styles.errors}>{errors.weight}</p> : null}

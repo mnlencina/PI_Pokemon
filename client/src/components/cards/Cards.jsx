@@ -1,28 +1,30 @@
-import React, {  useState } from "react";
+import React, { useEffect, useState } from "react";
 import Card from "../card/Card";
 import styles from './Cards.module.css'
 import { Paginations } from "../paginations/Paginations";
 import { useDispatch, useSelector } from "react-redux";
-import { filterDB, orderAtackPok, orderNamePok } from "../../redux/actions";
+import { filterDB, orderAtackPok, orderNamePok, resetDetail } from "../../redux/actions";
 
 
 const Cards = (props)=>{
     const {pokemon} = useSelector((state)=> state)
+    
     const dispatch = useDispatch()
     
-    const [pagina, setPagina] = useState(1);
+    const {pagina, setPagina} = props;
     const [porPagina] = useState(12);
     
     const [order, setOrder] = useState('');
     const [atack, setAtack] = useState('');
     const pagIni = (pagina - 1) * porPagina;
-    const pagFin = (pagina - 1) * porPagina + porPagina;
-    
-   
+    const pagFin = (pagina - 1) * porPagina + porPagina;   
     
     
     let maximo = pokemon.length / porPagina;
-   
+    
+    useEffect(()=>{
+        dispatch(resetDetail())
+    },[dispatch])
     
     const handleOrderName = (e)=>{
         e.preventDefault();
@@ -67,7 +69,7 @@ const Cards = (props)=>{
                 </label>
             </div>
             <div>
-               {<Paginations pagina={pagina} setPagina={setPagina} maximo={maximo}/>}
+               {pokemon.length > 12 && <Paginations pagina={pagina} setPagina={setPagina} maximo={maximo}/>}
             </div>
             <div className={styles.cardsDiv}>
             {pokemon.slice(pagIni,pagFin).map((p) =>
@@ -87,7 +89,11 @@ const Cards = (props)=>{
                 />
             )}
             
-            </div>     
+            </div>
+            <div>
+               {pokemon.length > 12 && <Paginations pagina={pagina} setPagina={setPagina} maximo={maximo}/>}
+               <p>@mnlencina</p>
+            </div>
             
         </div>
     )

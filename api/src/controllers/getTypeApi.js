@@ -14,8 +14,7 @@ const getTypeApi = async () => {
                 where: { name: resp.data.name },
               });
               return typeAdd           
-        }));  
-        console.log(typesAll);        
+        }));          
         return typesAll;
           
     }catch(error){

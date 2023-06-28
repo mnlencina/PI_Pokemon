@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Card.module.css'
-import NOTimage from '../img/startt2.gif'
+import { imgUtil } from "../../Util/imgUtil";
 import { Link } from "react-router-dom";
 import { imgTypes } from "../../Util/imgTypes";
 
@@ -10,17 +10,6 @@ const Card = (props)=>{
     !props.imageDefault 
         ? imageDefault = props.imageF
         : imageDefault = props.imageDefault
-        
-    const progreS = (v)=>{
-        let result = '';
-        let i = 0;
-        
-        do {
-          i = i + 1;
-          result = result + '/';
-        } while (i < (v/5.5));
-        return result;
-    }
 
     return(
     <>
@@ -28,7 +17,7 @@ const Card = (props)=>{
         <div className={styles.card}>
             <div className={styles.imgDefault}>
               
-                {!imageDefault ? <img src={NOTimage} alt=""/> : <img src={imageDefault} alt=""/> } 
+                {!imageDefault ? <img src={imgUtil.notImg} alt=""/> : <img src={imageDefault} alt=""/> } 
                             
             </div>
             <h2 className={styles.name}><span>{props.name}</span></h2>

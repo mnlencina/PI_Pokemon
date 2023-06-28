@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ADD_POKEMON_DETAIL, FILTER_DB, FILTER_TYPE, GET_ALLPOKEMON, GET_POKEMON_NAME, GET_POKEMON_TYPES, ORDER_ATAQUE, ORDER_NAME, POST_POKEMON } from '../actionsType';
+import { ADD_POKEMON_DETAIL, FILTER_DB, FILTER_TYPE, GET_ALLPOKEMON, GET_POKEMON_NAME, GET_POKEMON_TYPES, ORDER_ATAQUE, ORDER_NAME, POST_POKEMON, RESET_DETAIL } from '../actionsType';
 
 
 export function addAllPokemon(){
@@ -94,6 +94,13 @@ export function filterTypePok(payload){
 export function filterDB(payload){
   return{
     type: FILTER_DB,
+    payload
+  }
+}
+
+export function resetDetail(payload){
+  return{
+    type: RESET_DETAIL,
     payload
   }
 }

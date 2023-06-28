@@ -3,7 +3,6 @@ const { Pokemon, Type} = require("../db");
 
 const getPokNameOrId = async (req, res)=>{
  let {id, name} = req
- console.log({id, name});
  let urlGet;
  try {
      if (id){

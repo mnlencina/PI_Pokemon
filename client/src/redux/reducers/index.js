@@ -8,6 +8,7 @@ import {
   ORDER_ATAQUE,
   ORDER_NAME,
   POST_POKEMON,
+  RESET_DETAIL,
   } from '../actionsType/index';
 
 const initialState = {
@@ -39,6 +40,12 @@ export default function rootReducer(state = initialState, {type,payload}) {
         ...state,
         detail: payload,
       }
+    case RESET_DETAIL:
+      return {
+        ...state,
+        detail: {},
+      }
+    
       case GET_POKEMON_TYPES:
       return {
         ...state,

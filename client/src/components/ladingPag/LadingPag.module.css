@@ -27,13 +27,12 @@
 
 .startPag{    
     width: 100px;
-    top: 50%;
+    margin-top: 50px;
     left: 47.4%;
     cursor: pointer;
-    transition: all 600ms;
-    
+    transition: all 1.5s;    
 }
 .startPag:hover{
-    transform: scale(1.3);
+    transform: scale(1.5);
     
 }

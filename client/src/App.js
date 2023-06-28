@@ -1,18 +1,19 @@
-import React, { useEffect} from 'react';
+import React, { useEffect, useState} from 'react';
 import Nav from './components/nav/Nav.jsx'
 import LadingPag from './components/ladingPag/LadingPag';
 import Cards from "./components/cards/Cards.jsx"
 import Create from "./components/create/Create.jsx"
 import { Route, Routes, useLocation} from 'react-router-dom';
 import './App.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addAllPokemon, addAllTypes } from './redux/actions/index.js';
 import Detail from './components/detail/Detail.jsx';
 
 function App() {
+  const {allPokemon} = useSelector((state)=> state)
   const dispatch = useDispatch()
   const location = useLocation()
-  
+  const [pagina, setPagina] = useState(1);
   
   useEffect(()=>{
      dispatch(addAllPokemon())
@@ -21,10 +22,10 @@ function App() {
   
   return (
     <div className="appDiv">
-      {location.pathname !== '/' && <Nav/>}
+      {location.pathname !== '/' && <Nav setPagina={setPagina}/>}
       <Routes>
-        <Route path="/" element={<LadingPag/>} />
-        <Route path="/home"  element={<Cards/>}/>
+        <Route path="/" element={<LadingPag allPokemon={allPokemon}/>} />
+        <Route path="/home"  element={<Cards pagina={pagina} setPagina={setPagina}/>}/>
         <Route path="/create" element={<Create/>} />
         <Route path='detail/:idDetail' element={<Detail/>} />
       </Routes>

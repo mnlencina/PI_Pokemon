@@ -5,6 +5,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import styles from "../nav/Nav.module.css"
 
 const Nav = (props)=>{
+    const {setPagina} = props
     const [filterBar, setFilterBar] = useState(false)
     const location = useLocation()
     const [barra, setBarra] = useState(styles.barLeft2)
@@ -20,7 +21,7 @@ const Nav = (props)=>{
     return(
         <div className={styles.container}>
             <div>
-                {location.pathname !== "/create" && (
+                {location.pathname === "/home" && (
                     <label className={styles.burger} htmlFor="burger">
                         <input onClick={onTypes} type="checkbox" id="burger"/>
                         <span></span>
@@ -37,9 +38,9 @@ const Nav = (props)=>{
                 }
             </div>
             <div>
-                {location.pathname !== "/create" && location.pathname !== "/detail" && (
+                {location.pathname === "/home" && (
                     <div className={barra}>
-                        <TypeBar/>
+                        <TypeBar setPagina={setPagina}/>
                     </div>
                 )}
             </div>
